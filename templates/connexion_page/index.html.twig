@@ -1,20 +1,46 @@
-{% extends 'base.html.twig' %}
+{% extends 'first_page/index.html.twig' %}
 
 {% block title %}Hello ConnexionPageController!{% endblock %}
 
-{% block body %}
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
+{% block champs %}
 
-<div class="example-wrapper">
-    <h1>Hello {{ controller_name }}! ✅</h1>
 
-    This friendly message is coming from:
-    <ul>
-        <li>Your controller at <code><a href="{{ 'F:/INU Champollion/projet tutoré - FFF/fff_tarn_web/src/Controller/ConnexionPageController.php'|file_link(0) }}">src/Controller/ConnexionPageController.php</a></code></li>
-        <li>Your template at <code><a href="{{ 'F:/INU Champollion/projet tutoré - FFF/fff_tarn_web/templates/connexion_page/index.html.twig'|file_link(0) }}">templates/connexion_page/index.html.twig</a></code></li>
-    </ul>
+
+<div class="container w-50">
+
+<hr />    
+
+    <div class="example-wrapper">
+    <div> 
+            <form method = "">
+        <div class="mb-3">
+            <input type="email" class="form-control" id="" aria-describedby="emailHelp" placeholder = "Adresse Email">
+            
+        </div>
+        <div class="mb-3">
+            <input type="password" class="form-control" id="" placeholder="Mot de passe">
+        </div>
+        <div class="mb-3 form-check">
+            <input type="checkbox" class="form-check-input" id="exampleCheck1">
+            <label class="form-check-label" for="exampleCheck1">Se souvenir de moi</label>
+        </div>
+        <button type="submit" class="btn btn-primary">Connexion</button>
+        </form>
+    </div>
+
+    
+<hr />
+        <div>
+            <form method = "">
+
+            <div class="mb-3">
+                <input type="text" class="form-control" id="" placeholder="code d'équipe">
+            </div>
+
+            <button type="submit" class="btn btn-primary">Confirmé le code</button>
+            </form>
+        </div>
+    </div>
+
 </div>
 {% endblock %}
