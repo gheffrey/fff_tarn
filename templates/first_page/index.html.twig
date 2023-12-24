@@ -2,8 +2,10 @@
 
 {% block title %}First Page{% endblock %}
 
-{% block body %}
+{% block menu %} {% endblock %}
 
+
+{%block champ %}
 <div class="container" style="text-align:center;">
 
     <div> 
@@ -13,7 +15,12 @@
     <div >
         <p id="nom_first_page">NOM</p>
     </div>
-{% block champs %} 
+</div>
+
+{% endblock %}
+
+{% block body %} 
+    <div class="container" style="text-align:center;">
     <div>
         <button type="button" id="btn_se_connecter" class="btn btn-primary btn-lg">
           <a class="nav-link" href="{{asset('connexion/page/')}}" aria-current="page">Se connecter</a></button>
@@ -27,8 +34,6 @@
         <button type="button" id="btn_se_connecter" class="btn btn-primary btn-lg">
         <a class="nav-link" href="{{asset('create/profil/')}}" aria-current="page">Créer un compte</a></button>
     </div>
-{% endblock %}
-
 </div>
 
 
