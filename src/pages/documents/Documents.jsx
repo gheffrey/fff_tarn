@@ -1,5 +1,5 @@
 function Documents() {
-  return <div>Documents</div>;
+  return <div></div>;
 }
 
 export default Documents;

@@ -5,6 +5,8 @@ import Dashboard from "./pages/Dashboard";
 import { Routes, Route } from "react-router-dom";
 import Documents from "./pages/documents/Documents";
 import Machts from "./pages/matchs/Machts";
+import Users from "./pages/users/users";
+import Regles from "./pages/documents/Regles";
 
 function App() {
   return (
@@ -20,7 +22,9 @@ function App() {
               <Route path="/" element={<Dashboard />} />
               <Route path="*" element={<Dashboard />} />
 
+              <Route path="/joueurs" element={<Users />} />
               <Route path="/documents" element={<Documents />} />
+              <Route path="/regles" element={<Regles />} />
               <Route path="/matchs" element={<Machts />} />
             </Routes>
           </div>

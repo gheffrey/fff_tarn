@@ -17,13 +17,13 @@ function Sidebar() {
             </NavLink>
           </li>
           <li className="sidebar-item">
-            <NavLink className="sidebar-link" to="pages-profile.html">
+            <NavLink className="sidebar-link" to="/joueurs">
               <i className="align-middle" data-feather="user"></i>{" "}
               <span className="align-middle">Mes joueurs</span>
             </NavLink>
           </li>
           <li className="sidebar-item">
-            <NavLink className="sidebar-link" to="pages-profile.html">
+            <NavLink className="sidebar-link" to="/regles">
               <i className="align-middle" data-feather="user"></i>{" "}
               <span className="align-middle">Régles</span>
             </NavLink>
