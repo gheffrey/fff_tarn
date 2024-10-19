@@ -115,7 +115,7 @@ function Sidebar() {
             >
               <span className="sidebar-link">
                 <i className="align-middle" data-feather="bar-chart-2"></i>{" "}
-                <span className="align-middle">Liste de présence</span>
+                <span className="align-middle">Agenda</span>
               </span>
             </NavLink>
           </li>
