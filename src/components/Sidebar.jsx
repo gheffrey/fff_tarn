@@ -108,7 +108,7 @@ function Sidebar() {
           {/* Liste de présence */}
           <li>
             <NavLink
-              to="/presence"
+              to="/agenda"
               className={({ isActive }) =>
                 isActive ? "sidebar-item active" : "sidebar-item"
               }

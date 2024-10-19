@@ -9,6 +9,7 @@ import Users from "./pages/users/users";
 import Regles from "./pages/documents/Regles";
 import Jonglerie from "./pages/statistiques/jonglerie";
 import Tuto from "./pages/tutos/tuto";
+import Agenda from "./pages/agenda/agenda";
 
 function App() {
   return (
@@ -26,6 +27,7 @@ function App() {
 
               <Route path="/joueurs" element={<Users />} />
               <Route path="/documents" element={<Documents />} />
+              <Route path="/agenda" element={<Agenda />} />
               <Route path="/tutos" element={<Tuto />} />
               <Route path="/regles" element={<Regles />} />
               <Route path="/matchs" element={<Machts />} />
