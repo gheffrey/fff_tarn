@@ -8,6 +8,7 @@ import Machts from "./pages/matchs/Machts";
 import Users from "./pages/users/users";
 import Regles from "./pages/documents/Regles";
 import Jonglerie from "./pages/statistiques/jonglerie";
+import Tuto from "./pages/tutos/tuto";
 
 function App() {
   return (
@@ -25,6 +26,7 @@ function App() {
 
               <Route path="/joueurs" element={<Users />} />
               <Route path="/documents" element={<Documents />} />
+              <Route path="/tutos" element={<Tuto />} />
               <Route path="/regles" element={<Regles />} />
               <Route path="/matchs" element={<Machts />} />
               <Route path="/jonglerie" element={<Jonglerie />} />
