@@ -5,7 +5,7 @@ const generatedUsers = Array(faker.helpers.rangeToNumber({ min: 12, max: 26 }))
   .fill()
   .map(() => {
     return {
-      id: faker.string.numeric(5), // Générer un identifiant numérique
+      id: faker.string.numeric(3), // Générer un identifiant numérique
       nomComplet: faker.person.fullName(), // Générer un nom complet
       role: faker.helpers.arrayElement([Role.COACH, Role.JOEUR]), // Rôle aléatoire (COACH ou JOUEUR)
 

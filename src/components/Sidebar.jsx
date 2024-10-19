@@ -10,50 +10,113 @@ function Sidebar() {
 
         <ul className="sidebar-nav">
           <li className="sidebar-header">Mon club</li>
-          <li className="sidebar-item active">
-            <NavLink className="sidebar-link" to="/">
-              <i className="align-middle" data-feather="sliders"></i>{" "}
-              <span className="align-middle">Dashboard</span>
+
+          {/* Dashboard */}
+          <li>
+            <NavLink
+              to="/"
+              className={({ isActive }) =>
+                isActive ? "sidebar-item active" : "sidebar-item"
+              }
+            >
+              <span className="sidebar-link">
+                <i className="align-middle" data-feather="sliders"></i>{" "}
+                <span className="align-middle">Dashboard</span>
+              </span>
             </NavLink>
           </li>
-          <li className="sidebar-item">
-            <NavLink className="sidebar-link" to="/joueurs">
-              <i className="align-middle" data-feather="user"></i>{" "}
-              <span className="align-middle">Mes joueurs</span>
+
+          {/* Joueurs */}
+          <li>
+            <NavLink
+              to="/joueurs"
+              className={({ isActive }) =>
+                isActive ? "sidebar-item active" : "sidebar-item"
+              }
+            >
+              <span className="sidebar-link">
+                <i className="align-middle" data-feather="user"></i>{" "}
+                <span className="align-middle">Mes joueurs</span>
+              </span>
             </NavLink>
           </li>
-          <li className="sidebar-item">
-            <NavLink className="sidebar-link" to="/regles">
-              <i className="align-middle" data-feather="user"></i>{" "}
-              <span className="align-middle">Régles</span>
+
+          {/* Règles */}
+          <li>
+            <NavLink
+              to="/regles"
+              className={({ isActive }) =>
+                isActive ? "sidebar-item active" : "sidebar-item"
+              }
+            >
+              <span className="sidebar-link">
+                <i className="align-middle" data-feather="user"></i>{" "}
+                <span className="align-middle">Régles</span>
+              </span>
             </NavLink>
           </li>
 
           <li className="sidebar-header">Statistiques</li>
-          <li className="sidebar-item">
-            <NavLink className="sidebar-link" to="/documents">
-              <i className="align-middle" data-feather="square"></i>{" "}
-              <span className="align-middle">Jonglerie</span>
+
+          {/* Documents */}
+          <li>
+            <NavLink
+              to="/jonglerie"
+              className={({ isActive }) =>
+                isActive ? "sidebar-item active" : "sidebar-item"
+              }
+            >
+              <span className="sidebar-link">
+                <i className="align-middle" data-feather="square"></i>{" "}
+                <span className="align-middle">Jonglerie</span>
+              </span>
             </NavLink>
           </li>
-          <li className="sidebar-item">
-            <NavLink className="sidebar-link" to="/matchs">
-              <i className="align-middle" data-feather="square"></i>{" "}
-              <span className="align-middle">Matchs</span>
+
+          {/* Matchs */}
+          <li>
+            <NavLink
+              to="/matchs"
+              className={({ isActive }) =>
+                isActive ? "sidebar-item active" : "sidebar-item"
+              }
+            >
+              <span className="sidebar-link">
+                <i className="align-middle" data-feather="square"></i>{" "}
+                <span className="align-middle">Matchs</span>
+              </span>
             </NavLink>
           </li>
 
           <li className="sidebar-header">Entraînement</li>
-          <li className="sidebar-item">
-            <NavLink className="sidebar-link" to="charts-chartjs.html">
-              <i className="align-middle" data-feather="bar-chart-2"></i>{" "}
-              <span className="align-middle">Tutos</span>
+
+          {/* Tutos */}
+          <li>
+            <NavLink
+              to="/tutos"
+              className={({ isActive }) =>
+                isActive ? "sidebar-item active" : "sidebar-item"
+              }
+            >
+              <span className="sidebar-link">
+                <i className="align-middle" data-feather="bar-chart-2"></i>{" "}
+                <span className="align-middle">Tutos</span>
+              </span>
             </NavLink>
           </li>
-          <li className="sidebar-item">
-            <NavLink className="sidebar-link" to="charts-chartjs.html">
-              <i className="align-middle" data-feather="bar-chart-2"></i>{" "}
-              <span className="align-middle">Liste de présence</span>
+
+          {/* Liste de présence */}
+          <li>
+            <NavLink
+              to="/presence"
+              className={({ isActive }) =>
+                isActive ? "sidebar-item active" : "sidebar-item"
+              }
+            >
+              <span className="sidebar-link">
+                <i className="align-middle" data-feather="bar-chart-2"></i>{" "}
+                <span className="align-middle">Liste de présence</span>
+              </span>
             </NavLink>
           </li>
         </ul>
