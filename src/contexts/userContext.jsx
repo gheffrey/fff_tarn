@@ -35,7 +35,9 @@ const useUserProvider = () => {
     dateRecrutement,
     divisionFootball,
     login,
-    password
+    club,
+    dossar,
+    position
   ) => {
     const maxId = users.reduce(
       (max, user) => (user.id > max ? user.id : max),
@@ -50,7 +52,9 @@ const useUserProvider = () => {
       dateRecrutement: dateRecrutement,
       divisionFootball: divisionFootball,
       login: login,
-      password: password,
+      club: club,
+      dossar: dossar,
+      position: position,
     };
 
     setUsers((prevUsers) => {
@@ -66,7 +70,9 @@ const useUserProvider = () => {
     updatedDateRecrutement,
     updatedDivisionFootball,
     updatedLogin,
-    updatedPassword
+    updatedClub,
+    updateDossar,
+    updatePosition
   ) => {
     setUsers((prevUsers) => {
       return prevUsers.map((user) => {
@@ -79,7 +85,9 @@ const useUserProvider = () => {
             dateRecrutement: updatedDateRecrutement || user.dateRecrutement,
             divisionFootball: updatedDivisionFootball || user.divisionFootball,
             login: updatedLogin || user.login,
-            password: updatedPassword || user.password,
+            club: updatedClub || user.club,
+            dossar: updateDossar || user.dossar,
+            position: updatePosition || user.position,
           };
         } else {
           return user;

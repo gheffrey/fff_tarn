@@ -1,6 +1,17 @@
 import { faker } from "@faker-js/faker";
 import { Role } from "../entities/role";
 
+const footballPositions = [
+  "Gardien",
+  "Défenseur",
+  "Milieu",
+  "Attaquant",
+  "Ailier",
+  "Libéro",
+  "Latéral",
+  "Avant-centre",
+];
+
 const generatedUsers = Array(faker.helpers.rangeToNumber({ min: 12, max: 26 }))
   .fill()
   .map(() => {
@@ -21,8 +32,11 @@ const generatedUsers = Array(faker.helpers.rangeToNumber({ min: 12, max: 26 }))
       // Générer un email basé sur le nom comme login
       login: faker.internet.email(),
 
-      // Générer un mot de passe sécurisé (12 caractères)
-      password: faker.internet.password(12),
+      club: faker.company.name(),
+
+      dossar: faker.number.int({ min: 1, max: 25 }),
+
+      position: faker.helpers.arrayElement(footballPositions), // Sélectionne aléatoirement un poste dans le tableau
     };
   });
 

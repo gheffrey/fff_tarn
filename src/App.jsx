@@ -28,6 +28,7 @@ function App() {
 
               <Route path="/joueurs" element={<Users />} />
               <Route path="/addUser" element={<AddUser />} />
+
               <Route path="/documents" element={<Documents />} />
               <Route path="/agenda" element={<Agenda />} />
               <Route path="/tutos" element={<Tuto />} />

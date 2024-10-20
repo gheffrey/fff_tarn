@@ -1,18 +1,25 @@
-import React from "react";
+import PropTypes from "prop-types";
 
-export function Checkbox({ checked, onChange, label, id }) {
+export function Checkbox({ id, checked, onChange, labell }) {
   return (
     <div className="form-check">
       <input
-        id={id}
         type="checkbox"
-        className="form-check-input"
+        id={id}
         checked={checked}
-        onChange={(e) => onChange(e.target.checked)}
+        onChange={onChange}
+        className="form-check-input"
       />
-      <label htmlFor={id} className="form-check-label">
-        {label}
+      <label className="form-check-label" htmlFor={id}>
+        {labell}
       </label>
     </div>
   );
 }
+
+Checkbox.propTypes = {
+  id: PropTypes.string.isRequired, // `id` doit être une chaîne obligatoire
+  checked: PropTypes.bool.isRequired, // `checked` doit être un booléen obligatoire
+  onChange: PropTypes.func.isRequired, // `onChange` doit être une fonction obligatoire
+  labell: PropTypes.string.isRequired, // `labell` doit être une chaîne obligatoire
+};

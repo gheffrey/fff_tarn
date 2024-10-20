@@ -2,20 +2,20 @@ import PropTypes from "prop-types";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { useUserContext } from "../../contexts/userContext";
-import DetailsUser from "../../pages/users/detailsUser";
 
 export function UsersRow({ user }) {
   const { deleteuser } = useUserContext();
-
   const [clicked, setClicked] = useState(false);
 
   useEffect(() => {
+    // Effet optionnel si vous souhaitez faire quelque chose quand "user" change
     //console.log(user);
-  }, []);
+  }, [user]);
 
   const handleClick = () => {
     if (!clicked) {
-      <DetailsUser user={user} key={user.id} />;
+      // Le code ici ne rend pas un composant dans le DOM
+      // Pour une meilleure gestion, vous pouvez faire de la navigation ou ouvrir un modal par exemple
       setClicked(true);
     }
   };
@@ -26,20 +26,19 @@ export function UsersRow({ user }) {
 
   return (
     <tr>
-      <td>{user.id}</td>
       <td>{user.nomComplet}</td>
       <td>{user.role}</td>
-      <td>{user.dateNaissance.toLocaleDateString()}</td>{" "}
-      <td>{user.dateRecrutement.toLocaleDateString()}</td>{" "}
-      <td>{user.divisionFootball}</td> <td>{user.login}</td>
-      <td>{user.password}</td>
+      <td>{new Date(user.dateNaissance).toLocaleDateString()}</td>
+      <td>{new Date(user.dateRecrutement).toLocaleDateString()}</td>
+      <td>{user.divisionFootball}</td>
+      <td>{user.dossar}</td>
+      <td>{user.position}</td>
       <td>
-        <Link to={`/detailsuser/${user.id}`} state={{ usrs: user }}>
+        <Link to={`/detailsuser/${user.id}`} state={{ users: user }}>
           <button
             onClick={handleClick}
             className="btn btn-primary"
             id={user.id}
-            key={user.id}
           >
             Details
           </button>
@@ -47,10 +46,9 @@ export function UsersRow({ user }) {
       </td>
       <td>
         <button
-          onClick={() => handleDeleteuser()}
+          onClick={handleDeleteuser}
           className="btn btn-danger"
           id={user.id}
-          key={user.id}
         >
           Supprimer
         </button>
@@ -64,10 +62,17 @@ UsersRow.propTypes = {
     id: PropTypes.number.isRequired,
     nomComplet: PropTypes.string.isRequired,
     role: PropTypes.string.isRequired,
-    dateNaissance: PropTypes.instanceOf(Date).isRequired,
-    dateRecrutement: PropTypes.instanceOf(Date).isRequired,
-    divisionFootball: PropTypes.string.isRequired,
-    login: PropTypes.string.isRequired,
-    password: PropTypes.string.isRequired,
+    dateNaissance: PropTypes.oneOfType([
+      PropTypes.instanceOf(Date),
+      PropTypes.string, // Si les dates sont des chaînes à convertir
+    ]).isRequired,
+    dateRecrutement: PropTypes.oneOfType([
+      PropTypes.instanceOf(Date),
+      PropTypes.string,
+    ]).isRequired,
+    divisionFootball: PropTypes.oneOfType([PropTypes.string, PropTypes.number])
+      .isRequired,
+    dossar: PropTypes.string.isRequired, // Ajout de la propriété dossar
+    position: PropTypes.string.isRequired, // Ajout de la propriété position
   }).isRequired,
 };

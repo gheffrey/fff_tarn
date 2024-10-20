@@ -1,20 +1,19 @@
-/**
- * {string} placeholder
- * {string} value
- * {(s : string) => void} onChange
- */
+import PropTypes from "prop-types";
 
-export function Input({ placeholder, value, onChange }) {
+export function Input({ value, onChange, placeholder }) {
   return (
-    <div>
-      <input
-        type="text"
-        className="form-control"
-        name="inputSearch"
-        value={value}
-        placeholder={placeholder}
-        onChange={(e) => onChange(e.target.value)}
-      />
-    </div>
+    <input
+      type="text"
+      value={value}
+      onChange={onChange}
+      placeholder={placeholder}
+      className="form-control"
+    />
   );
 }
+
+Input.propTypes = {
+  value: PropTypes.string.isRequired, // `value` doit être une chaîne obligatoire
+  onChange: PropTypes.func.isRequired, // `onChange` doit être une fonction obligatoire
+  placeholder: PropTypes.string, // `placeholder` est une chaîne optionnelle
+};
