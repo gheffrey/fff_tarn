@@ -3,10 +3,10 @@ import { createContext, useContext, useEffect } from "react";
 import { listJonglerie } from "../data/jonglerie"; // Import de la liste de jongleries
 import useLocalStorage from "../Hooks/useLocalStorage"; // Hook personnalisé pour le stockage local
 
-const JonglerieContext = createContext({ jongleries: [] }); // Utilisation de 'jongleries' au lieu de 'Jongleries'
+const JonglerieContext = createContext(); // Crée un contexte sans valeur initiale
 
 const JonglerieProvider = ({ children }) => {
-  const values = useJonglerieProvider();
+  const values = useJonglerieProvider(); // Récupère les valeurs du fournisseur
 
   return (
     <JonglerieContext.Provider value={values}>
@@ -20,55 +20,46 @@ JonglerieProvider.propTypes = {
 };
 
 const useJonglerieProvider = () => {
-  const [jongleries, setJongleries] = useLocalStorage("jongleries", []);
+  const [jongleries, setJongleries] = useLocalStorage("jongleries", []); // État des jongleries avec stockage local
 
   useEffect(() => {
-    // Convertir les dates en instances de Date
+    // Charger initialement les jongleries depuis listJonglerie
     const convertedJongleries = listJonglerie.map((jonglerie) => ({
       ...jonglerie,
-      dateEnregistrement: new Date(jonglerie.dateEnregistrement), // Assurez-vous qu'il s'agit d'une instance de Date
+      dateEnregistrement: new Date(jonglerie.dateEnregistrement), // Convertir en instance de Date
     }));
 
     setJongleries(convertedJongleries);
   }, [setJongleries]);
 
-  useEffect(() => {
-    setJongleries(listJonglerie); // Chargement initial des jongleries
-  }, [setJongleries]);
-
-  const createJonglerie = (dateEnregistrement, user, resultat) => {
+  const createJonglerie = (dateEnregistrement, joueur, resultat) => {
     const maxId = jongleries.reduce(
-      (max, jonglerie) => (jonglerie.id > max ? jonglerie.id : max),
+      (max, jonglerie) => Math.max(max, jonglerie.id), // Utiliser Math.max pour obtenir l'ID max
       0
     );
 
     const newJonglerie = {
-      id: parseInt(maxId) + 1,
-      dateEnregistrement: dateEnregistrement.toISOString(), // Convertir en chaîne
-      client: user,
-      resultat: resultat, // Renommé pour correspondre à la structure
+      id: maxId + 1, // Incrémenter l'ID max
+      joueur: joueur,
+      dateEnregistrement: dateEnregistrement.toISOString(),
+      resultat: resultat,
     };
 
-    setJongleries((prevJongleries) => {
-      return [...prevJongleries, newJonglerie];
-    });
-  };
-
-  const updateJonglerie = () => {
-    // Implémentez la mise à jour si nécessaire
+    // Met à jour l'état des jongleries
+    setJongleries((prevJongleries) => [...prevJongleries, newJonglerie]);
   };
 
   const deleteJonglerie = (jonglerieId) => {
-    setJongleries((prevJongleries) => {
-      return prevJongleries.filter((jonglerie) => jonglerie.id !== jonglerieId);
-    });
+    setJongleries(
+      (prevJongleries) =>
+        prevJongleries.filter((jonglerie) => jonglerie.id !== jonglerieId) // Filtrer pour supprimer
+    );
   };
 
   return {
-    jongleries, // Renommé pour correspondre à la clé utilisée dans le contexte
-    createJonglerie,
-    updateJonglerie,
-    deleteJonglerie,
+    jongleries, // Liste des jongleries
+    createJonglerie, // Fonction pour ajouter une jonglerie
+    deleteJonglerie, // Fonction pour supprimer une jonglerie
   };
 };
 

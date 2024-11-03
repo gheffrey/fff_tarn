@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 const Agenda = () => {
   const days = [
@@ -10,33 +10,50 @@ const Agenda = () => {
     "Samedi",
     "Dimanche",
   ];
-  const hours = [
-    "09:00 - 10:00",
-    "10:00 - 11:00",
-    "11:00 - 12:00",
-    "12:00 - 13:00",
-    "13:00 - 14:00",
-  ];
 
-  // État pour stocker les tâches
-  const [schedule, setSchedule] = useState(() => {
+  // Récupérer les horaires modifiables depuis le localStorage ou initialiser par défaut
+  const getInitialHours = () => {
+    const savedHours = localStorage.getItem("hours");
+    if (savedHours) {
+      return JSON.parse(savedHours);
+    }
+    return [
+      "09:00 - 10:00",
+      "10:00 - 11:00",
+      "11:00 - 12:00",
+      "12:00 - 13:00",
+      "13:00 - 14:00",
+    ];
+  };
+
+  // État pour stocker les horaires
+  const [hours, setHours] = useState(getInitialHours);
+
+  // Récupérer l’emploi du temps depuis le localStorage ou initialiser
+  const getInitialSchedule = () => {
+    const savedSchedule = localStorage.getItem("schedule");
+    if (savedSchedule) {
+      return JSON.parse(savedSchedule);
+    }
     const initialSchedule = {};
     days.forEach((day) => {
       initialSchedule[day] = Array(hours.length).fill("");
     });
     return initialSchedule;
-  });
+  };
 
-  // État pour stocker les cases modifiées
-  const [modifiedCells, setModifiedCells] = useState(() => {
-    const initialModifiedCells = {};
-    days.forEach((day) => {
-      initialModifiedCells[day] = Array(hours.length).fill(false); // Initialement aucune case n'est modifiée
-    });
-    return initialModifiedCells;
-  });
+  const [schedule, setSchedule] = useState(getInitialSchedule);
 
-  // Gestion de la modification d'une tâche
+  // Sauvegarder les horaires dans le localStorage à chaque modification
+  useEffect(() => {
+    localStorage.setItem("hours", JSON.stringify(hours));
+    setSchedule(getInitialSchedule());
+  }, [hours]);
+
+  useEffect(() => {
+    localStorage.setItem("schedule", JSON.stringify(schedule));
+  }, [schedule]);
+
   const handleEdit = (day, hourIndex) => {
     const newTask = prompt(
       `Entrez une tâche pour ${day} à ${hours[hourIndex]} :`,
@@ -49,20 +66,47 @@ const Agenda = () => {
           i === hourIndex ? newTask : task
         ),
       }));
+    }
+  };
 
-      // Marquer la case comme modifiée
-      setModifiedCells((prevModifiedCells) => ({
-        ...prevModifiedCells,
-        [day]: prevModifiedCells[day].map((modified, i) =>
-          i === hourIndex ? true : modified
-        ),
-      }));
+  // Ajouter un nouvel horaire
+  const handleAddHour = () => {
+    const newHour = prompt("Entrez un nouvel horaire (ex : 15:00 - 16:00) :");
+    if (newHour) {
+      setHours((prevHours) => [...prevHours, newHour]);
+    }
+  };
+
+  // Modifier un horaire existant
+  const handleEditHour = (index) => {
+    const updatedHour = prompt("Modifier l’horaire :", hours[index]);
+    if (updatedHour) {
+      setHours((prevHours) =>
+        prevHours.map((hour, i) => (i === index ? updatedHour : hour))
+      );
+    }
+  };
+
+  // Supprimer un horaire
+  const handleDeleteHour = (index) => {
+    if (window.confirm("Voulez-vous supprimer cet horaire ?")) {
+      setHours((prevHours) => prevHours.filter((_, i) => i !== index));
+      setSchedule((prevSchedule) => {
+        const updatedSchedule = { ...prevSchedule };
+        days.forEach((day) => {
+          updatedSchedule[day] = updatedSchedule[day].filter(
+            (_, i) => i !== index
+          );
+        });
+        return updatedSchedule;
+      });
     }
   };
 
   return (
     <div className="container">
-      <h1 style={{ textAlign: "center" }}>Emploi du Temps Modifiable</h1>
+      <h1 style={{ textAlign: "center" }}>AGENDA</h1>
+      <button onClick={handleAddHour}>Ajouter un horaire</button>
       <table className="table table-bordered">
         <thead>
           <tr>
@@ -75,18 +119,16 @@ const Agenda = () => {
         <tbody>
           {hours.map((hour, hourIndex) => (
             <tr key={hourIndex}>
-              <td>{hour}</td>
+              <td>
+                {hour}
+                <button onClick={() => handleEditHour(hourIndex)}>✏️</button>
+                <button onClick={() => handleDeleteHour(hourIndex)}>🗑️</button>
+              </td>
               {days.map((day, dayIndex) => (
                 <td
                   key={dayIndex}
                   onClick={() => handleEdit(day, hourIndex)}
-                  style={{
-                    cursor: "pointer",
-                    textAlign: "center",
-                    backgroundColor: modifiedCells[day][hourIndex]
-                      ? "#D4EDDA"
-                      : "white", // Change la couleur de fond si modifié
-                  }}
+                  style={{ cursor: "pointer", textAlign: "center" }}
                 >
                   {schedule[day][hourIndex] || "Cliquez pour ajouter"}
                 </td>

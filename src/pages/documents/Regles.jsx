@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 function Regles() {
   // State pour gérer les fichiers PDF téléversés
@@ -26,8 +26,29 @@ function Regles() {
     }
 
     // Mettre à jour l'état avec les nouveaux fichiers PDF
-    setPdfFiles((prevFiles) => [...prevFiles, ...uploadedFiles]);
+    const newPdfFiles = [...pdfFiles, ...uploadedFiles];
+    setPdfFiles(newPdfFiles);
+    // Sauvegarder dans localStorage
+    localStorage.setItem("pdfFiles", JSON.stringify(newPdfFiles));
   };
+
+  // Fonction pour supprimer un fichier
+  const handleFileDelete = (fileToDelete) => {
+    const updatedFiles = pdfFiles.filter(
+      (file) => file.url !== fileToDelete.url
+    );
+    setPdfFiles(updatedFiles);
+    // Mettre à jour le localStorage
+    localStorage.setItem("pdfFiles", JSON.stringify(updatedFiles));
+  };
+
+  // Charger les fichiers depuis le localStorage à l'initialisation du composant
+  useEffect(() => {
+    const savedFiles = localStorage.getItem("pdfFiles");
+    if (savedFiles) {
+      setPdfFiles(JSON.parse(savedFiles));
+    }
+  }, []);
 
   return (
     <div className="card">
@@ -58,6 +79,19 @@ function Regles() {
                   <a href={file.url} target="_blank" rel="noopener noreferrer">
                     {file.name}
                   </a>
+                  <button
+                    onClick={() => handleFileDelete(file)}
+                    style={{
+                      marginLeft: "10px",
+                      backgroundColor: "#f44336",
+                      color: "white",
+                      border: "none",
+                      borderRadius: "4px",
+                      cursor: "pointer",
+                    }}
+                  >
+                    Supprimer
+                  </button>
                 </li>
               ))}
             </ul>

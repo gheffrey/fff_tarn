@@ -2,21 +2,11 @@ import { useEffect, useRef, useState } from "react";
 import { NavLink, useLocation, useNavigate, useParams } from "react-router-dom";
 import { useUserContext } from "../../contexts/userContext";
 import { Role } from "../../entities/role";
-
-const footballPositions = [
-  "Gardien",
-  "Défenseur",
-  "Milieu",
-  "Attaquant",
-  "Ailier",
-  "Libéro",
-  "Latéral",
-  "Avant-centre",
-];
+import { footballPositions } from "../../data/generatedUsers";
 
 function AddUser() {
   const { id } = useParams(); // Récupère l'ID de l'URL
-  const redirection = useNavigate(); //pour la redirection
+  const redirection = useNavigate(); // pour la redirection
 
   // Références pour les inputs
   const nomCompletInputRef = useRef();
@@ -32,17 +22,25 @@ function AddUser() {
 
   const { state } = useLocation(); // la variable state qui est dans DetailsUser
 
-  const navigate = useNavigate();
+  //const [selectedOptions, setSelectedOptions] = useState([]); // Correction de l'initialisation
   const [user, setUser] = useState(null); // Initialiser l'utilisateur à null
 
   // Chargement des données utilisateur si nous sommes en mode édition (update)
   useEffect(() => {
     if (state === null && id !== "0") {
-      navigate("/AddUser"); // Rediriger si on essaie d'accéder sans User valide
+      redirection("/AddUser"); // Rediriger si on essaie d'accéder sans User valide
     } else if (state && state.users) {
       setUser(state.users); // Récupère les données User à modifier
     }
-  }, [navigate, state, id]);
+  }, [redirection, state, id]);
+
+  /**  const handleChange = (event) => {
+    const selected = Array.from(
+      event.target.selectedOptions,
+      (option) => option.value
+    );
+    setSelectedOptions(selected);
+  };*/
 
   // Gestion de la soumission du formulaire
   function submitHandler(event) {
@@ -66,10 +64,11 @@ function AddUser() {
         dateRecrutementEntered,
         divisionEntered,
         loginEntered,
+        "CLUB_NAME",
         dossarEntered,
         positionEntered
       );
-    } else if (user) {
+    } else {
       // Mode mise à jour
       updateUser(
         user.id,
@@ -79,6 +78,7 @@ function AddUser() {
         dateRecrutementEntered,
         divisionEntered,
         loginEntered,
+        "CLUB_NAME",
         dossarEntered,
         positionEntered
       );

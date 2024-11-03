@@ -1,11 +1,17 @@
 import { useState } from "react";
 import PropTypes from "prop-types";
 import { SearchBar } from "../../components/forms/SearchBar";
-import { UsersRow } from "../../components/users/UsersRow";
+import { UsersRow } from "../../components/users/usersRow";
 import { Link } from "react-router-dom";
 import { useUserContext } from "../../contexts/userContext";
 
 export function UserColumn({ usersList, searchTerm, isChecked }) {
+  // Vérifiez que usersList est bien un tableau
+  if (!Array.isArray(usersList)) {
+    console.error("usersList doit être un tableau");
+    return null; // Arrête l'exécution si ce n'est pas un tableau
+  }
+
   // Appliquer un filtrage en fonction du terme de recherche et de la case cochée
   const filteredUsers = usersList.filter((user) => {
     if (!isChecked) {
@@ -50,12 +56,21 @@ UserColumn.propTypes = {
       id: PropTypes.number.isRequired,
       nomComplet: PropTypes.string.isRequired,
       role: PropTypes.string.isRequired,
-      dateNaissance: PropTypes.instanceOf(Date).isRequired,
-      dateRecrutement: PropTypes.instanceOf(Date).isRequired,
-      divisionFootball: PropTypes.string.isRequired,
-      login: PropTypes.string.isRequired,
-      password: PropTypes.string.isRequired,
-    })
+      dateNaissance: PropTypes.oneOfType([
+        PropTypes.instanceOf(Date),
+        PropTypes.string, // Si les dates sont des chaînes à convertir
+      ]).isRequired,
+      dateRecrutement: PropTypes.oneOfType([
+        PropTypes.instanceOf(Date),
+        PropTypes.string,
+      ]).isRequired,
+      divisionFootball: PropTypes.oneOfType([
+        PropTypes.string,
+        PropTypes.number,
+      ]).isRequired,
+      dossar: PropTypes.string.isRequired, // Ajout de la propriété dossar
+      position: PropTypes.string.isRequired, // Ajout de la propriété position
+    }).isRequired
   ).isRequired,
   searchTerm: PropTypes.string.isRequired,
   isChecked: PropTypes.bool.isRequired,

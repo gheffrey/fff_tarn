@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import { useUserContext } from "../../contexts/userContext";
 
 export function UsersRow({ user }) {
-  const { deleteuser } = useUserContext();
+  const { deleteUser } = useUserContext();
   const [clicked, setClicked] = useState(false);
 
   useEffect(() => {
@@ -21,7 +21,7 @@ export function UsersRow({ user }) {
   };
 
   const handleDeleteuser = () => {
-    deleteuser(user.id);
+    deleteUser(user.id);
   };
 
   return (
@@ -39,6 +39,7 @@ export function UsersRow({ user }) {
             onClick={handleClick}
             className="btn btn-primary"
             id={user.id}
+            key={user.id}
           >
             Details
           </button>
@@ -46,9 +47,10 @@ export function UsersRow({ user }) {
       </td>
       <td>
         <button
-          onClick={handleDeleteuser}
+          onClick={() => handleDeleteuser()}
           className="btn btn-danger"
           id={user.id}
+          key={user.id}
         >
           Supprimer
         </button>

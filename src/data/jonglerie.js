@@ -7,7 +7,7 @@ const generateJonglerie = (numItems = 3) => {
   }).map(() => {
     return {
       id: parseInt(faker.string.numeric(5)), // Convertir l'ID en nombre
-      joueur: faker.person.fullName(), // Génération d'un nom complet pour le joueur
+      joueur: "joueur ...", // Génération d'un nom complet pour le joueur
       dateEnregistrement: faker.date
         .soon({
           days: 30,
@@ -21,4 +21,5 @@ const generateJonglerie = (numItems = 3) => {
 
 // Génération de la liste de jongleries
 const listJonglerie = generateJonglerie(); // Vous pouvez spécifier un nombre max si nécessaire
+
 export { listJonglerie };

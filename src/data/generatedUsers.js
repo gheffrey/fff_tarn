@@ -1,7 +1,7 @@
 import { faker } from "@faker-js/faker";
 import { Role } from "../entities/role";
 
-const footballPositions = [
+export const footballPositions = [
   "Gardien",
   "Défenseur",
   "Milieu",

@@ -1,12 +1,11 @@
 import PropTypes from "prop-types";
-import { SearchBar } from "../../components/forms/SearchBar";
+//import { SearchBar } from "../../components/forms/SearchBar";
 import { JonglerieRow } from "../../components/statistiques/jonglerieRow"; // Adaptation : Import de JonglerieRow
 import { Link } from "react-router-dom";
 import { useJonglerieContext } from "../../contexts/jonglerieContext"; // Adaptation : Utilisation du contexte des jongleries
 
 export function JonglerieColumn({ jonglerieList }) {
   const rows = [];
-
   for (let j of jonglerieList) {
     rows.push(<JonglerieRow jonglerie={j} key={j.id} />); // Adaptation : Passer "jonglerie" comme prop
   }
@@ -37,15 +36,13 @@ export function JonglerieColumn({ jonglerieList }) {
 }
 
 function Jongleries() {
-  const { jongleries: generatedJongleries } = useJonglerieContext(); // Utilisation correcte du contexte des jongleries
+  const { jongleries: listJonglerie } = useJonglerieContext(); // Utilisation correcte du contexte des jongleries
 
   return (
     <div className="container my-3">
+      <div>{/* <SearchBar /> */}</div>
       <div>
-        <SearchBar />
-      </div>
-      <div>
-        <JonglerieColumn jonglerieList={generatedJongleries} />{" "}
+        <JonglerieColumn jonglerieList={listJonglerie} />{" "}
         {/* Passer la liste des jongleries */}
       </div>
     </div>

@@ -5,17 +5,22 @@ import { Link } from "react-router-dom";
 function DetailsUser() {
   const { state } = useLocation(); // Récupérer l'état passé avec "Link"
   const navigate = useNavigate();
-  const [user, setUser] = useState({}); // Initialiser un utilisateur vide
+  const [user, setUser] = useState(null); // Initialiser l'utilisateur à null
 
   useEffect(() => {
-    if (state === null) {
+    if (!state || !state.users) {
       // Si aucun utilisateur n'est passé, revenir à la liste des utilisateurs
       navigate("/users");
     } else {
       // Sinon, stocker l'utilisateur dans le state
-      setUser(state.usrs); // "usrs" correspond à l'objet utilisateur
+      setUser(state.users); // "users" correspond à l'objet utilisateur
     }
   }, [navigate, state]);
+
+  // Si l'utilisateur n'est pas défini, afficher un message ou une redirection
+  if (!user) {
+    return <p>Chargement des détails de l utilisateur...</p>;
+  }
 
   return (
     <div>
@@ -56,11 +61,17 @@ function DetailsUser() {
                 Login : {user.login}
               </h6>
               <h6 className="card-subtitle mb-2 text-body-secondary">
-                Mot de Passe : {user.password}
+                Club : {user.club}
+              </h6>
+              <h6 className="card-subtitle mb-2 text-body-secondary">
+                Dossar : {user.dossar}
+              </h6>
+              <h6 className="card-subtitle mb-2 text-body-secondary">
+                Position : {user.position}
               </h6>
             </div>
             <div className="mb-3">
-              <Link to={`/updateUser/${user.id}`} state={{ usrs: user }}>
+              <Link to={`/updateUser/${user.id}`} state={{ users: user }}>
                 <button className="btn btn-primary" id={user.id} key={user.id}>
                   Mettre à jour
                 </button>

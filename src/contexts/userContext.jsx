@@ -52,7 +52,7 @@ const useUserProvider = () => {
       dateRecrutement: dateRecrutement,
       divisionFootball: divisionFootball,
       login: login,
-      club: club,
+      club: "CLUB_NAME",
       dossar: dossar,
       position: position,
     };
